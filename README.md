@@ -16,4 +16,18 @@ References:
 [3] van Den Dool, H. & Kratz, P. Dec. (1963), A generalization of the retention index system including linear temperature programmed gas-liquid partition chromatography. Journal of Chromatography 11, 463 - 471; https://doi.org/10.1016/S0021-9673(01)80947-X
 
 # Installation
-(1) ...
+1) ...
+
+# Preparations / Requirements
+
+1) Create a new folder in your folder structure. Place the following 3 files in the folder:
+    - "Rt-to-RI.ipynb"
+    - "Alkanmix.csv"
+    - Your file with the raw data that you would like to convert.
+
+2) Notes on the "Alkanmix.csv" file: 
+    - Column 'Alkan' contains the number of C atoms (do not chance the numbers). 
+    - Column "Retentionszeit" contains the retention time of the alkane with comma as numeric separator. -> Enter your measured retention times here!
+    - Measurement of the alkane mixture must be done with the same chromatographic system as your sample from which you want to convert your raw data.
+
+3) ...
