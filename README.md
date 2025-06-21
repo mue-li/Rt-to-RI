@@ -16,18 +16,17 @@ References:
 [3] van Den Dool, H. & Kratz, P. Dec. (1963), A generalization of the retention index system including linear temperature programmed gas-liquid partition chromatography. Journal of Chromatography 11, 463 - 471; https://doi.org/10.1016/S0021-9673(01)80947-X
 
 # Installation
-1) ...
+1) If necessary, install Python (programming language) and Anaconda (contains Python and other useful packages) as well as a text editor, for example Visula Studio Code.
+    - https://www.python.org/downloads/
+    - https://www.anaconda.com/download
+    - https://code.visualstudio.com/download
+2) Clone the repository into a suitable directory.
+3) Open the app.py file.
+4) If necessary, install the extentions (e.g. dash, pandas ...). To install just do pip install [replace the name of the package] in the terminal.
+5) Run the the file app.py
+6) Go in you terminal and copy the presented link ('Dash is running on http://127.X.X.X:XXXX/') in your Browser.
+7) Follow the instructions that you will now find in the web application. This way you can convert your raw data.
 
-# Preparations / Requirements
-
-1) Create a new folder in your folder structure. Place the following 3 files in the folder:
-    - "Rt-to-RI.ipynb"
-    - "Alkanmix.csv"
-    - Your file with the raw data that you would like to convert.
-
-2) Notes on the "Alkanmix.csv" file: 
-    - Column 'Alkan' contains the number of C atoms (do not chance the numbers). 
-    - Column "Retentionszeit" contains the retention time of the alkane with comma as numeric separator. -> Enter your measured retention times here!
-    - Measurement of the alkane mixture must be done with the same chromatographic system as your sample from which you want to convert your raw data.
-
-3) ...
+# Testing the web application
+1) Perform all steps in the web application. To do this, use the file ‘Testfile_GC-MS_raw-data.CSV’, which you can find in the repository, and the unchanged alkane mix template (file 'Alkanmix.csv').
+2) You should see a preview image. You should also be able to download a converted file with the same content as the file 'Testfile_transformed_data_file.csv' (file in the repository for comparison).
