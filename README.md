@@ -30,3 +30,6 @@ References:
 # Testing the web application
 1) Perform all steps in the web application. To do this, use the file ‘Testfile_GC-MS_raw-data.CSV’, which you can find in the repository, and the unchanged alkane mix template (file 'Alkanmix.csv').
 2) You should see a preview image. You should also be able to download a converted file with the same content as the file 'Testfile_transformed_data_file.csv' (file in the repository for comparison).
+
+# Acknowledgement
+A big thank you for the technical support in developing and debugging the web application goes to https://github.com/JonZimmermann.
