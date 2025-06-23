@@ -9,9 +9,9 @@
 
 #Dateien
 **.csv
+**.CSV
 !Alkanmix.csv
 !Testfile_GC-MS_raw-data.CSV
 !Testfile_transformed_data_file.csv
 **.ipynb
 Backups/
-template/
