@@ -1,0 +1,17 @@
+# Logdateien
+*.log
+
+# Konfiguration der Entwicklungsumgebung
+.vscode/
+
+# Byte-compiled 
+**/__pycache__/
+
+#Dateien
+**.csv
+!Alkanmix.csv
+!Testfile_GC-MS_raw-data.CSV
+!Testfile_transformed_data_file.csv
+**.ipynb
+Backups/
+template/
