@@ -503,16 +503,7 @@ def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep):
     if contents:
         content_type, content_string = contents.split(",")
         decoded = base64.b64decode(content_string)
-        #df = pd.read_csv(
-        #    #io.StringIO(decoded.decode("iso-8859-1")),
-        #    io.StringIO(decoded.decode("utf-8")),
-        #    sep=column_sep,
-        #    decimal=num_sep,
-        #    skiprows=n_skip,
-        #    thousands=thou_sep,
-        #)
-        #return df.to_json(date_format="iso", orient="split")
-    
+   
         try:
             df = pd.read_csv(
                 io.StringIO(decoded.decode("utf-8")),
