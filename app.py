@@ -178,7 +178,7 @@ app.layout = dbc.Container(
                             [
                                 dbc.Col(
                                     [
-                                         html.P('2) Column with time values in your raw data file:'),
+                                         html.P('2) Number of the column with time values in your raw data file:'),
                                          #'Column with tintensity values in your raw data file'
                                          #'First row with values for time and intensity in your raw data file'
                                          dcc.Dropdown(
@@ -194,7 +194,7 @@ app.layout = dbc.Container(
 
                                 dbc.Col(
                                     [
-                                        html.P('3) Column with intensity values in your raw data file:'),
+                                        html.P('3) Number of the column with intensity values in your raw data file:'),
                                         dcc.Dropdown(
                                             id='int-dropdown',
                                             options=[
@@ -214,11 +214,11 @@ app.layout = dbc.Container(
                             [                              
                                 dbc.Col(
                                     [
-                                        html.P('4) First row with values for time and intensity:'),
+                                        html.P('4) Number of the first row with values for time and intensity:'),
                                         dcc.Dropdown(
                                             id='skip-dropdown',
                                             options=[
-                                                {'label': str(i), 'value': i-1} for i in range(1, 51)
+                                                {'label': str(i), 'value': i-1} for i in range(1, 101)
                                             ],
                                             #value=1,
                                             placeholder='Select the number of the first row',
@@ -240,14 +240,14 @@ app.layout = dbc.Container(
                             [
                                 dbc.Col(
                                     [
-                                        html.P('5) Numeric separator in your raw data file:'),
+                                        html.P('5) Decimal separator in your raw data file:'),
                                         dcc.Dropdown(
                                             id='num-sep-dropdown',
                                             options=[
-                                                {'label': 'Comma to separate the decimal places', 'value': ','},
-                                                {'label': 'Dot to separate the decimal places', 'value': '.'},
+                                                {'label': 'Comma to separate the decimal places (e.g. 12,34567)', 'value': ','},
+                                                {'label': 'Dot to separate the decimal places (e.g. 12.34567)', 'value': '.'},
                                              ],
-                                            placeholder='Select the numeric separator',
+                                            placeholder='Select the decimal separator',
                                         ),       
                                     ]
                                 ),
@@ -279,9 +279,9 @@ app.layout = dbc.Container(
                                         dcc.Dropdown(
                                             id='thou-sep-dropdown',
                                             options=[
-                                                {'label': 'No mark for the separation of the thousands', 'value': 'None'},
-                                                {'label': 'Comma to separate the thousands places', 'value': ','},
-                                                {'label': 'Dot to separate the thousands places', 'value': '.'},
+                                                {'label': 'No mark for the separation of the thousands (e.g. 1234567)', 'value': 'None'},
+                                                {'label': 'Comma to separate the thousands places (e.g. 1,234,567)', 'value': ','},
+                                                {'label': 'Dot to separate the thousands places (e.g. 1.234.567)', 'value': '.'},
                                              ],
                                             placeholder='Select the thousands separator',
                                         ), 
