@@ -114,7 +114,7 @@ app.layout = dbc.Container(
                                 "1) Download the template in which you fill in the retention times of the alkanes.",
                                 html.Ul(
                                     [
-                                        html.Li("Column 'Alkan' contains the number of C atoms (do not chance the numbers)."),
+                                        html.Li("Column 'Alkan' contains the number of C-atoms (do not chance the numbers)."),
                                         html.Li("Column 'Retentionszeit' contains the retention time of the alkane with comma as numeric separator. -> Enter your measured retention times here!"),
                                         html.Li("Measurement of the alkane mixture must be done with the same chromatographic system as your sample from which you want to convert your raw data."),
                                     ],
