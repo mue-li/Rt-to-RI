@@ -23,7 +23,7 @@ def show_plot(df_plot, ri="RI", val="Value"):
 
     fig.update_layout(
         title="GC-Chromatogram",
-        width=600,  # adjust as needed (e.g. 600 pixels wide)
+        width=600,  
         height=400,
         xaxis_title="Retention Index (RI)",
         yaxis_title="Intensity/counts",
@@ -71,10 +71,10 @@ def transform_data(df_Alk, df_Raw, c_time, c_int):
 app = Dash(
     __name__,
     external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME],
-)  # unter external Stylesheet kann ein eigenes css-File hinterlegt werden
+)  
 server = app.server
 
-# A Container component. Containers provide a means to center and horizontally pad the site’s contents.
+
 app.layout = dbc.Container(
     [  # Overhead Navigation Bar with the Logo and a Title
         dbc.Navbar(
@@ -179,14 +179,11 @@ app.layout = dbc.Container(
                                 dbc.Col(
                                     [
                                          html.P('2) Number of the column with time values in your raw data file:'),
-                                         #'Column with tintensity values in your raw data file'
-                                         #'First row with values for time and intensity in your raw data file'
                                          dcc.Dropdown(
                                              id='time-dropdown',
                                              options=[
                                                  {'label': str(i), 'value': i-1} for i in range(1, 6)
                                               ],
-                                             #value=0,
                                              placeholder='Select the number of the column',
                                          ),
                                     ]
@@ -200,7 +197,6 @@ app.layout = dbc.Container(
                                             options=[
                                                 {'label': str(i), 'value': i-1} for i in range(1, 6)
                                              ],
-                                            #value=0,
                                             placeholder='Select the number of the column',
                                         ),
                                         html.Br(),
@@ -220,7 +216,6 @@ app.layout = dbc.Container(
                                             options=[
                                                 {'label': str(i), 'value': i-1} for i in range(1, 101)
                                             ],
-                                            #value=1,
                                             placeholder='Select the number of the first row',
                                         ),
                                         html.Br(),
@@ -300,7 +295,6 @@ app.layout = dbc.Container(
                         ),
 
                         
-
                         dbc.Row(
                             [
                                 dbc.Col(
@@ -402,7 +396,6 @@ app.layout = dbc.Container(
                                         dbc.Button(
                                             "Download new CSV file",
                                             id="download-button",
-                                            #className="mt-3",
                                             disabled=True,
                                             style={
                                                 "background-color": "#00305d",
@@ -514,7 +507,7 @@ def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep):
             )
             return df.to_json(date_format="iso", orient="split")
         except UnicodeDecodeError:
-            # Wenn UTF8 nicht funktioniert, dann UTF16
+            # wenn UTF8 nicht funktioniert, dann UTF16
             try:
                 df = pd.read_csv(
                     io.StringIO(decoded.decode("utf-16")),
@@ -525,14 +518,13 @@ def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep):
                 )
                 return df.to_json(date_format="iso", orient="split")
             except UnicodeDecodeError:
-                # Wenn auch UTF16 nicht funktioniert, gibt es einen Fehler
+                # wenn auch UTF16 nicht funktioniert, gibt es einen Fehler
                 return None
     
     return None
 
 
 # Create plot only if both files are uploaded
-
 @app.callback(
     Output("graph-goeshere", "children"),
     Output("transformed-data", "data"),
@@ -579,7 +571,6 @@ def download(_, data_json):
             filename="transformed_data_file.csv", 
             index=False
         )
-
 
 
 ###############################################################################################
