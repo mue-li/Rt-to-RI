@@ -1,5 +1,3 @@
-# How to contribute?
+You are welcome to contribute to the web application, whether with simple comments or with ideas for the code and implementation. Also feel free to ask questions if you need support! 
 
-# How to report issues od problems?
-
-# How to get support?
+To do this, please use the 'Issues' tab of this repository.
