@@ -8,29 +8,19 @@ tags:
   - chromatograms
   - analytical chemistry
 authors:
-  - name: Adrian M. Price-Whelan
-    orcid: 0000-0000-0000-0000
-    equal-contrib: true
-    affiliation: "1, 2" # (Multiple affiliations must be quoted)
-  - name: Author Without ORCID
-    equal-contrib: true # (This is how you can denote equal contributions between multiple authors)
+  - name: Lina Müller
+    affiliation: 1
+  - name: Jonas M. Zimmermann
     affiliation: 2
-  - name: Author with no affiliation
-    corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 3
-  - given-names: Ludwig
-    dropping-particle: van
-    surname: Beethoven
-    affiliation: 3
+  - name: Thomas J. Simat
+    affiliation: 1
 affiliations:
- - name: Lyman Spitzer, Jr. Fellow, Princeton University, United States
+ - name: Technische Universität Dresden, Germany
    index: 1
-   ror: 00hx57361
- - name: Institution Name, Country
+   ror: 042aqky30
+ - name: Technical advisor (unaffiliated), Germany
    index: 2
- - name: Independent Researcher, Country
-   index: 3
-date: 13 August 2017
+date: 08 July 2025
 bibliography: paper.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
