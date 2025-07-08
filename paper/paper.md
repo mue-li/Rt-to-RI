@@ -11,7 +11,7 @@ tags:
   - analytical chemistry
 
 authors:
-  - name: Lina Müller
+  - name: Lina M.
     affiliation: '1'
 
 affiliations:
