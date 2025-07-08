@@ -28,5 +28,3 @@ References: <br>
 [2] National Institute of Standards and Technology, NIST Chemistry WebBook, Standard Reference Database; https://doi.org/10.18434/T4D303 <br>
 [3] van Den Dool, H. & Kratz, P. Dec. (1963), A generalization of the retention index system including linear temperature programmed gas-liquid partition chromatography. Journal of Chromatography 11, 463 - 471; https://doi.org/10.1016/S0021-9673(01)80947-X
 
-# Acknowledgement
-A big thank you for the technical support in developing and debugging the web application goes to Jonas.
