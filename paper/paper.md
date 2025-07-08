@@ -19,7 +19,7 @@ affiliations:
     name: TUD, Germany
     ror: 042aqky30
 
-date: 02.07.2025
+date: 02 July 2025
 
 bibliography: paper.bib
 
