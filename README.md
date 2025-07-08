@@ -1,5 +1,5 @@
 # Rt-to-RI
-Rt-to-RI is a Python tool that converts the retention time (Rt) into the corresponding retention index (RI). This can be done for the entire data of a gas chromatography (GC) chromatogram (value pairs of Rt and intensity) in .txt or .csv format. This calculation uses a .csv file containing the retention times of an n-alkane standard mix as reference compounds on the same chromatographic system. The result is a data set in .csv format and an interactive preview image. The resulting data set can be imported into a visualisation programme and used to display GC chromatograms with the RI instead of the Rt on the abscissa.
+Rt-to-RI is a Python tool that converts the retention time (Rt) into the corresponding retention index (RI). This can be done for the entire data of a gas chromatography (GC) chromatogram (value pairs of Rt and intensity). The input is the raw data file of the sample chromatogram in .txt or .csv format and a second .csv file containing the retention times of an n-alkane standard mix on the same chromatographic system. The output is a single data set in .csv format and an interactive preview image. The new data file can then be imported into a visualisation programme used to display the GC chromatogram with the RI on the abscissa and for further processing.
 
 # Installation
 1) If necessary, install Python (programming language) and Anaconda (contains Python and other useful packages) as well as a text editor, for example Visula Studio Code.
@@ -9,7 +9,7 @@ Rt-to-RI is a Python tool that converts the retention time (Rt) into the corresp
 2) Clone or download the repository into a suitable directory (via green button 'Code').
 3) If necessary, install the packages by running the command ```pip install -r requirements.txt``` in your terminal.
 4) Open the ```app.py``` and run the the file to start the application locally. 
-5) Go in you terminal and copy the presented link ('Dash is running on http://127.X.X.X:XXXX/') in your Browser.
+5) Go in your terminal and copy the presented link ('Dash is running on http://127.X.X.X:XXXX/') in your Browser.
 6) Follow the instructions that you will now find in the web application. This way you can convert your raw data.
 
 # Testing the web application
@@ -28,5 +28,3 @@ References: <br>
 [2] National Institute of Standards and Technology, NIST Chemistry WebBook, Standard Reference Database; https://doi.org/10.18434/T4D303 <br>
 [3] van Den Dool, H. & Kratz, P. Dec. (1963), A generalization of the retention index system including linear temperature programmed gas-liquid partition chromatography. Journal of Chromatography 11, 463 - 471; https://doi.org/10.1016/S0021-9673(01)80947-X
 
-# Acknowledgement
-A big thank you for the technical support in developing and debugging the web application goes to Jonas.
