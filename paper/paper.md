@@ -1,6 +1,6 @@
 ---
 
-title: Rt-to-RI – A simple Python programme to transform the retention time (Rt) into the retention index (RI) for gas chromatography chromatograms
+title: 'Rt-to-RI – A simple Python programme to transform the retention time (Rt) into the retention index (RI) for gas chromatography chromatograms'
 
 tags: 
   - Python
@@ -26,3 +26,5 @@ bibliography: paper.bib
 ---
 
 # Testtesttest
+
+# References
