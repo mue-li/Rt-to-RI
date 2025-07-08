@@ -26,7 +26,7 @@ bibliography: paper.bib
 ---
 
 # Summary
-Test [@excel]
+![Graphical abstract showing simplified function and purpose of *Rt-to-RI*. \lable{fig:abs}](images/graphical-abstract.png)
 
 # Statement of need
 The retention index is used in gas chromatography to normalise the retention time of an analyte independently of the measuring device, the temperature gradient, the column dimension and the gas flow. The RI is a relative value that is characteristic of a substance on a specific stationary phase in a separation column [@kovats]. The RIs of many substances on different stationary phases - mostly DB-1, DB-5, WAX and FFAP - are listed in databases such as the NIST database [@nist]. Therefore, the RI of a substance can be used as a criterion to identify the substance in addition to the mass spectrum. This is particularly important for homologous series of substances whose mass spectra are highly similar but can be differentiated by their RI.
