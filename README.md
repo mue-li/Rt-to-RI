@@ -9,7 +9,7 @@ Rt-to-RI is a Python tool that converts the retention time (Rt) into the corresp
 2) Clone or download the repository into a suitable directory (via green button 'Code').
 3) If necessary, install the packages by running the command ```pip install -r requirements.txt``` in your terminal.
 4) Open the ```app.py``` and run the the file to start the application locally. 
-5) Go in you terminal and copy the presented link ('Dash is running on http://127.X.X.X:XXXX/') in your Browser.
+5) Go in your terminal and copy the presented link ('Dash is running on http://127.X.X.X:XXXX/') in your Browser.
 6) Follow the instructions that you will now find in the web application. This way you can convert your raw data.
 
 # Testing the web application
