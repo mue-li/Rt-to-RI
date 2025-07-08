@@ -16,7 +16,7 @@ authors:
 
 affiliations:
   - index: 1
-    name: Technische Universität Dresden, Germany
+    name: TUD, Germany
     ror: 042aqky30
 
 date: 02.07.2025
