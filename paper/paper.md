@@ -1,11 +1,12 @@
 ---
-title: 'Gala: A Python package for galactic dynamics'
+title: 'Rt-to-RI – A simple Python programme to transform the retention time (Rt) into the retention index (RI) for gas chromatography chromatograms'
 tags:
   - Python
-  - astronomy
-  - dynamics
-  - galactic dynamics
-  - milky way
+  - retention time
+  - retention index
+  - gas chromatography
+  - chromatograms
+  - analytical chemistry
 authors:
   - name: Adrian M. Price-Whelan
     orcid: 0000-0000-0000-0000
