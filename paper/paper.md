@@ -23,89 +23,28 @@ affiliations:
 date: 08 July 2025
 bibliography: paper.bib
 
-# Optional fields if submitting to a AAS journal too, see this blog post:
-# https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
-aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
-aas-journal: Astrophysical Journal <- The name of the AAS journal.
 ---
 
 # Summary
+*RT-to-RI* is a simple programme written in the Python programming language that converts the retention time (Rt) into the corresponding retention index (RI) for the data of a gas chromatography (GC) chromatogram (value pairs of Rt and the measured intensity) (see \autoref{fig:abs}). The programme calculates the corresponding RI for each data point using the calculation formula according to Kováts [@kovats] and van Den Dool & Kratz [@vanDen]. The input in the presented programme is the raw data file of the sample chromatogram in .txt or .csv format and a second .csv file containing the retention times of an n-alkane standard mix on the same chromatographic system. The output is a single data set in .csv format and an interactive preview image. The new data file can then be imported into programmes such as Excel [@excel], Origin [@origin] or others. Here, the data can be visualized as a GC chromatogram with the RI on the abscissa and be used for further processing. 
 
-The forces on stars, galaxies, and dark matter under external gravitational
-fields lead to the dynamical evolution of structures in the universe. The orbits
-of these bodies are therefore key to understanding the formation, history, and
-future state of galaxies. The field of "galactic dynamics," which aims to model
-the gravitating components of galaxies to study their structure and evolution,
-is now well-established, commonly taught, and frequently used in astronomy.
-Aside from toy problems and demonstrations, the majority of problems require
-efficient numerical tools, many of which require the same base code (e.g., for
-performing numerical orbit integration).
+![Graphical abstract showing simplified function and purpose of *Rt-to-RI*. \lable{fig:abs}](images/graphical-abstract.png) 
 
 # Statement of need
+The retention index is used in gas chromatography to normalise the retention time of an analyte independently of the measuring device, the temperature gradient, the column dimension and the gas flow. The RI is a relative value that is characteristic of a substance on a specific stationary phase in a separation column [@kovats]. The RIs of many substances on different stationary phases - mostly DB-1, DB-5, WAX and FFAP - are listed in databases such as the NIST database [@nist]. Therefore, the RI of a substance can be used as a criterion to identify the substance in addition to the mass spectrum. This is particularly important for homologous series of substances whose mass spectra are highly similar but can be differentiated by their RI.
 
-`Gala` is an Astropy-affiliated Python package for galactic dynamics. Python
-enables wrapping low-level languages (e.g., C) for speed without losing
-flexibility or ease-of-use in the user-interface. The API for `Gala` was
-designed to provide a class-based and user-friendly interface to fast (C or
-Cython-optimized) implementations of common operations such as gravitational
-potential and force evaluation, orbit integration, dynamical transformations,
-and chaos indicators for nonlinear dynamics. `Gala` also relies heavily on and
-interfaces well with the implementations of physical units and astronomical
-coordinate systems in the `Astropy` package [@astropy] (`astropy.units` and
-`astropy.coordinates`).
+The aim of the work was to calculate the RI not only for individual peaks, but also for the entire GC chromatogram. The transformed chromatogram with a normalised RI abscissa makes it easier and clearer to compare chromatograms from independent measurements. 
 
-`Gala` was designed to be used by both astronomical researchers and by
-students in courses on gravitational dynamics or astronomy. It has already been
-used in a number of scientific publications [@Pearson:2017] and has also been
-used in graduate courses on Galactic dynamics to, e.g., provide interactive
-visualizations of textbook material [@Binney:2008]. The combination of speed,
-design, and support for Astropy functionality in `Gala` will enable exciting
-scientific explorations of forthcoming data releases from the *Gaia* mission
-[@gaia] by students and experts alike.
+The target group for this programme includes all analysts who work with GC, for example chemists, food chemists, toxicologists, biologists, environmental scientists and lots more.
 
-# Mathematics
+# State of the field
+As far as the authors are aware, people convert the retention time into the RI chromatogram in a non-automated way themselves. While some integrated software tools in measuring devices can calculate the RI of integrated peaks, to the best of our knowledge they do not convert the entire chromatogram.
 
-Single dollars ($) are required for inline mathematics e.g. $f(x) = e^{\pi/x}$
+For processing, raw data (e.g. in .txt or .csv format) of chromatograms are imported into programmes such as Excel [@excel] or Origin [@origin] in order to process them for scientific papers, posters and presentations. The authors are currently not aware of any easily available, customisable tools for converting the retention time to RI for an entire raw data files in .txt or .csv format. 
+*Rt-to-RI* was developed to offer an easily accessible and easy-to-use solution. *Rt-to-RI* closes the gap in the workflow between receiving the raw data from the measuring device and further processing the chromatograms in a programme of choice. The *Rt-to-RI* converter can be easily integrated into the workflow and reduces the workload when processing chromatogram data.
 
-Double dollars make self-standing equations:
+# Authors’ Contribution
+L. Müller wrote the manuscript and developed the scientific core element of the programme. J.M. Zimmermann contributed technical advice and support on general programming. T.J. Simat provided the conceptualisation and contributed to the manuscript. 
 
-$$\Theta(x) = \left\{\begin{array}{l}
-0\textrm{ if } x < 0\cr
-1\textrm{ else}
-\end{array}\right.$$
-
-You can also use plain \LaTeX for equations
-\begin{equation}\label{eq:fourier}
-\hat f(\omega) = \int_{-\infty}^{\infty} f(x) e^{i\omega x} dx
-\end{equation}
-and refer to \autoref{eq:fourier} from text.
-
-# Citations
-
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
-
-If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for @fidgit.
-
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
-
-# Figures
-
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
-and referenced from text using \autoref{fig:example}.
-
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% }
-
-# Acknowledgements
-
-We acknowledge contributions from Brigitta Sipocz, Syrtis Major, and Semyeong
-Oh, and support from Kathryn Johnston during the genesis of this project.
 
 # References
