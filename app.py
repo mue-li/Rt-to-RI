@@ -123,7 +123,7 @@ app.layout = dbc.Container(
                                         'margin-bottom': '4px'
                                     }
                                 ),
-                                "2) Fill in the drop-down fields. Note the conditions in your sample measurement raw data file. (The file must be in csv or txt format.)",
+                                "2) Fill in the drop-down fields. Note the conditions in your sample measurement raw data file. (The file must be in .csv or .txt format.)",
                                 html.Br(),
                                 "3) Upload the completed alkanmix file to the field provided. Then upload your raw file provided.",
                                 html.Br(),
