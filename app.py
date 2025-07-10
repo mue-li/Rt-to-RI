@@ -438,29 +438,73 @@ app.layout = dbc.Container(
 
 @app.callback(
     Output("alkanmix-upload-text", "children"),
+    Output("alkanmix-upload", "style"),
     Input("alkanmix-upload", "contents"),
     prevent_initial_call=True
 )
 def update_upload_feedback(contents):
     if contents:
-        return "File uploaded successfully."  
+        new_style = {
+            "width": "90%",
+            "height": "60px",
+            "lineHeight": "60px",
+            "borderWidth": "1px",
+            "borderStyle": "dashed",
+            "borderRadius": "5px",
+            "textAlign": "center",
+            "margin": "10px",
+            "backgroundColor": "#dcede0",
+        }
+        return "File uploaded successfully.", new_style
+    default_style = {
+            "width": "90%",
+            "height": "60px",
+            "lineHeight": "60px",
+            "borderWidth": "1px",
+            "borderStyle": "dashed",
+            "borderRadius": "5px",
+            "textAlign": "center",
+            "margin": "10px",
+        }  
     return [
         "Drag or click ",
         html.A("to select a file.")
-    ]
+    ], default_style
 
 @app.callback(
     Output("data-upload-text", "children"),
+    Output("data-upload", "style"),
     Input("data-upload", "contents"),
     prevent_initial_call=True
 )
 def update_upload_feedback(contents):
     if contents:
-        return "File uploaded successfully."  
+        new_style = {
+            "width": "90%",
+            "height": "60px",
+            "lineHeight": "60px",
+            "borderWidth": "1px",
+            "borderStyle": "dashed",
+            "borderRadius": "5px",
+            "textAlign": "center",
+            "margin": "10px",
+            "backgroundColor": "#dcede0",
+        }
+        return "File uploaded successfully.", new_style  
+    default_style = {
+            "width": "90%",
+            "height": "60px",
+            "lineHeight": "60px",
+            "borderWidth": "1px",
+            "borderStyle": "dashed",
+            "borderRadius": "5px",
+            "textAlign": "center",
+            "margin": "10px",
+        }
     return [
         "Drag or click ",
         html.A("to select a file.")
-    ]
+    ], default_style
 
 @callback(
     Output("download-alkan", "data"),
