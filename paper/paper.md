@@ -1,5 +1,5 @@
 ---
-title: 'Rt-to-RI – A simple Python programme to transform the retention time (Rt) into the retention index (RI) for gas chromatography (GC) chromatograms'
+title: 'Rt-to-RI – A Python programme to transform the retention time (Rt) into the retention index (RI) for gas chromatography (GC) chromatograms'
 tags:
   - Python
   - retention time
@@ -26,7 +26,7 @@ bibliography: paper.bib
 ---
 
 # Summary
-*RT-to-RI* is a simple programme written in the Python programming language that converts the retention time (Rt) into the corresponding retention index (RI) for the data of a gas chromatography (GC) chromatogram (value pairs of Rt and the measured intensity) (see \autoref{fig:abs}). The programme calculates the corresponding RI for each data point using the calculation formula according to @kovats and @vanDen. The input in the presented programme is the raw data file of the sample chromatogram in .txt or .csv format and a second .csv file containing the retention times of an n-alkane standard mix on the same chromatographic system. The output is a single data set in .csv format and an interactive preview image. The new data file can then be imported into programmes such as Excel [@excel], Origin [@origin] or others. Here, the data can be visualized as a GC chromatogram with the RI on the abscissa and be used for further processing.
+*RT-to-RI* is a programme written in the Python programming language that converts the retention time (Rt) into the corresponding retention index (RI) for the data of a gas chromatography (GC) chromatogram (value pairs of Rt and the measured intensity) (see \autoref{fig:abs}). The programme calculates the corresponding RI for each data point using the calculation formula according to @kovats and @vanDen. The input in the presented programme is the raw data file of the sample chromatogram in .txt or .csv format and a second .csv file containing the retention times of an n-alkane standard mix on the same chromatographic system. The output is a single data set in .csv format and an interactive preview image. The new data file can then be imported into programmes such as Excel [@excel], Origin [@origin] or others. Here, the data can be visualized as a GC chromatogram with the RI on the abscissa and be used for further processing.
 
 ![Graphical abstract showing simplified functionality and purpose of *Rt-to-RI*: Generating a data set with the corresponding retention index (RI) for each data point of retention time (Rt) to visualise gas chromatography (GC) chromatograms with the RI on the abscissa. \label{fig:abs}](images/graphical-abstract.png)
 
@@ -38,13 +38,14 @@ The aim of the work was to calculate the RI not only for individual peaks, but a
 The target group for this programme includes all analysts who work with GC, for example chemists, food chemists, toxicologists, biologists, environmental scientists and lots more.
 
 # State of the field
-As far as the authors are aware, people convert the retention time into the RI chromatogram in a non-automated way themselves. While some integrated software tools in measuring devices can calculate the RI of integrated peaks, to the best of our knowledge they do not convert the entire chromatogram.
-
-For processing, raw data (e.g. in .txt or .csv format) of chromatograms are imported into programmes such as Excel [@excel] or Origin [@origin] in order to process them for scientific papers, posters and presentations. The authors are currently not aware of any easily available, customisable tools for converting the retention time to RI for an entire raw data files in .txt or .csv format. 
-*Rt-to-RI* was developed to offer an easily accessible and easy-to-use solution. *Rt-to-RI* closes the gap in the workflow between receiving the raw data from the measuring device and further processing the chromatograms in a programme of choice. The *Rt-to-RI* converter can be easily integrated into the workflow and reduces the workload when processing chromatogram data.
+The authors are currently not aware of any easily available, customisable tools for converting the retention time to RI for an entire raw data files in .txt or .csv format. As far as the authors are aware, people convert the retention time into the RI chromatogram in a non-automated way themselves. While some integrated software tools in measuring devices can calculate the RI of integrated peaks, to the best of our knowledge they do not convert the entire chromatogram.
+  
+ *Rt-to-RI* closes the gap in the workflow between receiving the raw data from the measuring device and further processing the chromatograms in a programme of choice. For processing, raw data (e.g. in .txt or .csv format) of chromatograms are imported into programmes such as Excel [@excel] or Origin [@origin] in order to process them for scientific papers, posters and presentations. The *Rt-to-RI* converter can be easily integrated into the workflow and reduces the workload when processing chromatogram data.*Rt-to-RI* was developed to offer an easily accessible and easy-to-use solution.
 
 # Authors’ Contribution
-L. Müller wrote the manuscript and developed the scientific core element of the programme. <br> J. M. Zimmermann contributed technical advice and support on general programming. <br> T. J. Simat provided the conceptualisation and contributed to the manuscript. 
+L. Müller wrote the manuscript and developed the scientific core element of the programme. <br> 
+J. M. Zimmermann contributed technical advice and support on general programming. <br> 
+T. J. Simat provided the conceptualisation and contributed to the manuscript. 
 
 
 # References
