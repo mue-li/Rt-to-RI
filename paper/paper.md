@@ -43,8 +43,8 @@ The authors are currently not aware of any easily available, customisable tools 
  *Rt-to-RI* closes the gap in the workflow between receiving the raw data from the measuring device and further processing the chromatograms in a programme of choice. For processing, raw data (e.g. in .txt or .csv format) of chromatograms are imported into programmes such as Excel [@excel] or Origin [@origin] in order to process them for scientific papers, posters and presentations. The *Rt-to-RI* converter can be easily integrated into the workflow and reduces the workload when processing chromatogram data.*Rt-to-RI* was developed to offer an easily accessible and easy-to-use solution.
 
 # Authors’ Contribution
-L. Müller wrote the manuscript and developed the scientific core element of the programme. <br> 
-J. M. Zimmermann contributed technical advice and support on general programming. <br> 
+L. Müller wrote the manuscript and developed the scientific core element of the programme.   <br> 
+J. M. Zimmermann contributed technical advice and support on general programming.   <br> 
 T. J. Simat provided the conceptualisation and contributed to the manuscript. 
 
 
