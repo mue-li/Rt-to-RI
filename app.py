@@ -308,6 +308,8 @@ app.layout = dbc.Container(
                                         dcc.Upload(
                                             id="alkanmix-upload",
                                             children=html.Div(
+                                                id="alkanmix-upload-text",
+                                                children=
                                                 [
                                                     "Drag or click ",
                                                     html.A(
@@ -342,6 +344,8 @@ app.layout = dbc.Container(
                                         dcc.Upload(
                                             id="data-upload",
                                             children=html.Div(
+                                                id="data-upload-text",
+                                                children=
                                                 [
                                                     "Drag or click ",
                                                     html.A(
@@ -431,6 +435,32 @@ app.layout = dbc.Container(
 ###############################################################################################
 # CALLBACKS
 ###############################################################################################
+
+@app.callback(
+    Output("alkanmix-upload-text", "children"),
+    Input("alkanmix-upload", "contents"),
+    prevent_initial_call=True
+)
+def update_upload_feedback(contents):
+    if contents:
+        return "File uploaded successfully."  
+    return [
+        "Drag or click ",
+        html.A("to select a file.")
+    ]
+
+@app.callback(
+    Output("data-upload-text", "children"),
+    Input("data-upload", "contents"),
+    prevent_initial_call=True
+)
+def update_upload_feedback(contents):
+    if contents:
+        return "File uploaded successfully."  
+    return [
+        "Drag or click ",
+        html.A("to select a file.")
+    ]
 
 @callback(
     Output("download-alkan", "data"),
