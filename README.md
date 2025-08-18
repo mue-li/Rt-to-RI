@@ -1,5 +1,14 @@
 # Rt-to-RI
-Rt-to-RI is a Python tool that converts the retention time (Rt) into the corresponding retention index (RI). This can be done for the entire data of a gas chromatography (GC) chromatogram (value pairs of Rt and intensity). The input is the raw data file of the sample chromatogram in .txt or .csv format and a second .csv file containing the retention times of an n-alkane standard mix on the same chromatographic system. The output is a single data set in .csv format and an interactive preview image. The new data file can then be imported into a visualisation programme used to display the GC chromatogram with the RI on the abscissa and for further processing.
+*Rt-to-RI* is a Python tool that converts the retention time (Rt) into the corresponding retention index (RI). This can be done for the entire data of a gas chromatography (GC) chromatogram (value pairs of Rt and intensity). The input is the raw data file of the sample chromatogram in .txt or .csv format and a second .csv file containing the retention times of an n-alkane standard mix on the same chromatographic system. The output is a single data set in .csv or .xlsx format and an interactive preview image. The new data file can then be imported into a visualisation programme used to display the GC chromatogram with the RI on the abscissa and for further processing.
+
+# Web-Application
+*Rt-to-RI* is available online via the following link: 
+https://cclh50.chm.tu-dresden.de/app
+
+Alternatively, you can install the tool on your computer and use it locally by following the installation instructions.
+
+If you use *Rt-to-RI* tool, please cite this work!
+L. Müller, J. M. Zimmermann, T. J. Simat (2025): Rt-to-RI Python tool [Computer software], Zenodo, Doi
 
 # Installation
 1) If necessary, install Python (programming language) or Anaconda (contains Python and other useful packages).
@@ -32,3 +41,11 @@ You are welcome to contribute to the web application, whether with simple commen
 Also feel free to ask questions if you need support! 
 
 To do this, please use the 'Issues' tab of this repository.
+
+# Contact information
+The authors can be contacted by email:
+lina.mueller@tu-dresden.de
+thomas.simat@tu-dresden.de
+
+Please also visit the website of our working group on the Dresden University of Technology website:
+https://tu-dresden.de/mn/chemie/lc/lc2

@@ -38,13 +38,14 @@ def calculate_RI(Rt, Retentionszeit, Alkan):
 
     for i in range(len(Retentionszeit) - 1):
         if Retentionszeit[i] < Rt <= Retentionszeit[i + 1]:
-            return 100 * (
+            result = 100 * (
                 Alkan[i]
                 + (
                     (Rt - Retentionszeit[i])
                     / (Retentionszeit[i + 1] - Retentionszeit[i])
                 )
             )
+            return round(result, 1)  # auf 1 Nachkommastelle runden
 
     return None
 
@@ -127,7 +128,7 @@ app.layout = dbc.Container(
                                 html.Br(),
                                 "3) Upload the completed alkanmix file to the field provided. Then upload your raw file provided.",
                                 html.Br(),
-                                "4) A preview image will now appear. You can download the converted file using the button provided.",
+                                "4) A preview image will now appear. You can download the converted file in .csv or .xlsx formate using the buttons provided. ",
                                 html.Br(),
                                 html.Br(),
                             ]
@@ -178,20 +179,28 @@ app.layout = dbc.Container(
                             [
                                 dbc.Col(
                                     [
-                                         html.P('2) Number of the column with time values in your raw data file:'),
-                                         dcc.Dropdown(
+                                        html.P([
+                                            '2) Position of the column with time values in your raw data file:',
+                                            html.Br(),
+                                            '(The first column on the left is number 1, the second is number 2, and so on.)'
+                                        ]),
+                                        dcc.Dropdown(
                                              id='time-dropdown',
                                              options=[
                                                  {'label': str(i), 'value': i-1} for i in range(1, 6)
                                               ],
                                              placeholder='Select the number of the column',
-                                         ),
+                                        ),
                                     ]
                                 ),
 
                                 dbc.Col(
                                     [
-                                        html.P('3) Number of the column with intensity values in your raw data file:'),
+                                        html.P([
+                                            '3) Position of the column with intensity values in your raw data file:',
+                                            html.Br(),
+                                            '(The first column on the left is number 1, the second is number 2, and so on.)'
+                                        ]),
                                         dcc.Dropdown(
                                             id='int-dropdown',
                                             options=[
@@ -373,6 +382,7 @@ app.layout = dbc.Container(
                                 html.Hr(style={"border-top": "5px solid #00305d"}),
                             ]
                         ),
+
                         html.Div(
                             [
                                 html.Center(id="graph-goeshere")
@@ -391,37 +401,76 @@ app.layout = dbc.Container(
                                 'color': "#7F888F"
                             }
                         ),
-                        
-                        html.Div(
+
+                        dbc.Row(
                             [
                                 dcc.Store(id="transformed-data"),
-                                html.Div(
+                                dbc.Col(
                                     [
-                                        dbc.Button(
-                                            "Download new CSV file",
-                                            id="download-button",
-                                            disabled=True,
+                                        
+                                        html.Div(
+                                            [
+                                                dbc.Button(
+                                                    "Download CSV file",
+                                                    id="download-button-csv",
+                                                    disabled=True,
+                                                    style={
+                                                        "background-color": "#00305d",
+                                                        'opacity': '1', 
+                                                        'border-color': 'transparent',
+                                                        "height": "70px",
+                                                        "width": "500px",
+                                                        "font-size": "24px",
+                                                        "font-weight": "bold"
+                                                    },
+                                                ),
+                                                # Component for downloading data
+                                                dcc.Download(id="download-dataframe-csv"),
+                                            ],
                                             style={
-                                                "background-color": "#00305d",
-                                                'opacity': '1', 
-                                                'border-color': 'transparent',
-                                                "height": "100px",
-                                                "width": "500px",
-                                                "font-size": "24px",
-                                                "font-weight": "bold"
-                                            },
-                                        ),
-                                        # Component for downloading data
-                                        dcc.Download(id="download-dataframe"),
-                                    ],
-                                    style={
-                                        "display": "flex",
-                                        "justify-content": "center",
-                                        "align-items": "center"
-                                    }
+                                                "display": "flex",
+                                                "justify-content": "center",
+                                                "align-items": "center"
+                                            }
+                                        ), 
+                                    ]
                                 ),
-                            ],           
+
+                                dbc.Col(
+                                    [
+                                        
+                                        html.Div(
+                                            [
+                                                dbc.Button(
+                                                    "Download Excel file",
+                                                    id="download-button-excel",
+                                                    disabled=True,
+                                                    style={
+                                                        "background-color": "#00305d",
+                                                        'opacity': '1', 
+                                                        'border-color': 'transparent',
+                                                        "height": "70px",
+                                                        "width": "500px",
+                                                        "font-size": "24px",
+                                                        "font-weight": "bold"
+                                                    },
+                                                ),
+                                                # Component for downloading data
+                                                dcc.Download(id="download-dataframe-excel"),
+                                            ],
+                                            style={
+                                                "display": "flex",
+                                                "justify-content": "center",
+                                                "align-items": "center"
+                                            }
+                                        ),
+                                    ]
+                                ),
+
+                            ]
                         ),
+                        html.Hr(style={"border-top": "5px solid #00305d"}),
+
                         html.Br(),
                         html.Br(),
                     ]
@@ -602,7 +651,8 @@ def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep):
 @app.callback(
     Output("graph-goeshere", "children"),
     Output("transformed-data", "data"),
-    Output("download-button", "disabled"),
+    Output("download-button-csv", "disabled"),
+    Output("download-button-excel", "disabled"),
     Input("stored-alkan", "data"),
     Input("stored-data", "data"),
     State("time-dropdown", "value"),
@@ -625,14 +675,14 @@ def update_graph(json_alkan, json_data, c_time, c_int):
         return (
             dcc.Graph(figure=show_plot(data_transf, "RI", "Value")),
             data_transf.to_json(date_format="iso", orient="split"),
-            False,
+            False, False
         )
-    return None, None, True
+    return None, None, True, True
 
 
 @callback(
-    Output("download-dataframe", "data"),
-    Input("download-button", "n_clicks"),
+    Output("download-dataframe-csv", "data"),
+    Input("download-button-csv", "n_clicks"),
     State("transformed-data", "data"),
     prevent_initial_call=True,
 )
@@ -646,8 +696,24 @@ def download(_, data_json):
             index=False
         )
 
+@callback(
+    Output("download-dataframe-excel", "data"),
+    Input("download-button-excel", "n_clicks"),
+    State("transformed-data", "data"),
+    prevent_initial_call=True,
+)
+def download(_, data_json):
+    """Downloads the updated excel file"""
+    if data_json:
+        df = pd.read_json(data_json, orient="split")
+        return dcc.send_data_frame(
+            df.to_excel, 
+            filename="transformed_data_file.xlsx", 
+            index=False
+        )
+
 
 ###############################################################################################
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
