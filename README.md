@@ -5,11 +5,10 @@
 
 # Web-Application
 *Rt-to-RI* is available online via the following link: 
-https://cclh50.chm.tu-dresden.de/app
-
+https://cclh50.chm.tu-dresden.de/app <br>
 Alternatively, you can install the tool on your computer and use it locally by following the installation instructions.
 
-If you use *Rt-to-RI* tool, please cite this work!
+If you use *Rt-to-RI* tool, please cite this work! <br>
 L. Müller, J. M. Zimmermann, T. J. Simat (2025): Rt-to-RI Python tool [Computer software], Zenodo, [DOI 10.5281/zenodo.16893056.](https://doi.org/10.5281/zenodo.16893134) 
 
 # Installation
