@@ -44,7 +44,7 @@ Also feel free to ask questions if you need support!
 To do this, please use the 'Issues' tab of this repository.
 
 # Contact information
-The authors can be contacted by email: <br>
+The authors can be contacted via email: <br>
 lina.mueller@tu-dresden.de <br>
 thomas.simat@tu-dresden.de
 

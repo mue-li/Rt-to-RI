@@ -71,7 +71,7 @@ def transform_data(df_Alk, df_Raw, c_time, c_int):
 
 app = Dash(
     __name__,
-    external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME],
+    external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME]
 )  
 server = app.server
 
@@ -108,6 +108,17 @@ app.layout = dbc.Container(
                         html.P(
                             [
                                 "Rt-to-RI is a Python tool that converts the retention time (Rt) into the corresponding retention index (RI). The resulting data set can be imported into a visualisation programme and used to display GC chromatograms with the RI instead of the Rt on the abscissa.",
+                                html.Br(),
+                                html.Hr(),
+                                "For more information about Rt-to-RI and if you want to run the tool locally on your computer, please visit our GitHub website:",
+                                html.Br(),
+                                html.A("https://github.com/mue-li/Rt-to-RI", href="https://github.com/mue-li/Rt-to-RI", target="_blank"),
+                                html.Br(),
+                                html.Br(),
+                                "If you use Rt-to-RI tool, please cite this work!",
+                                html.Br(),
+                                "L. Müller, J. M. Zimmermann, T. J. Simat (2025): Rt-to-RI Python tool [Computer software], Zenodo, ", 
+                                html.A("DOI 10.5281/zenodo.16893056", href="https://doi.org/10.5281/zenodo.16893134", target="_blank"),
                                 html.Br(),
                                 html.Hr(),
                                 html.Strong("How do I use this application?"),
@@ -474,11 +485,109 @@ app.layout = dbc.Container(
                         html.Br(),
                         html.Br(),
                     ]
-                )
+                ),
+
+                ###############################################################
+
+
+                html.Div(
+                    [
+                        # Button zum Ein-/Ausklappen
+                        html.Div(
+                            [
+                                html.Button(
+                                    "Legal notice", 
+                                    id="impressum-button", 
+                                    n_clicks=0, 
+                                    style={'font-size': '12px'}
+                                ),
+                            ],
+                            style={
+                                "display": "flex",
+                                "justify-content": "center",
+                                "align-items": "center"
+                            }
+                        ),
+
+                        html.Br(),
+                        html.Br(),
+
+                        # Einklappbarer Bereich
+                        dbc.Collapse(
+                            html.Div(
+                                dcc.Markdown(
+                                    """
+                                    The [Legal Notice of TU Dresden](https://tu-dresden.de/impressum) applies with the following amendments:
+
+                                    RESPONSIBILITIES 
+
+                                    If you have any questions regarding content, please contact:  
+                                    Lina Müller  
+                                    Technische Universität Dresden  
+                                    DE – 01062 Dresden  
+                                    Email: lina.mueller@tu-dresden.de  
+                                    Tel.: +49 351 463-32616  
+                                    
+                                    Technical implementation:  
+                                    Technische Universität Dresden  
+                                    Professur für Lebensmittelkunde und Bedarfsgegenstände  
+                                    Bergstraße 66, DE – 01062 Dresden  
+                                    Lina Müller  
+                                    Email: lina.mueller@tu-dresden.de   
+
+                                    
+                                    DATA PROTECTION DECLARATION
+
+                                    TU Dresden processes personal data for the use of the public website. This personal data pertains to cookies only, which are used exclusively for providing this service. In particular, this means that this website uses no tracking cookies to record or analyze user movement and behavior on our website. 
+                                    
+                                    Legal basis  
+                                    The legal basis for this is Art. 6 para. 1 letter f GDPR.
+                                    
+                                    Rights of data subjects   
+                                    —	You have the right to obtain information from TU Dresden on the data processed concerning you and/or to request the correction of inaccurate data.  
+                                    —	You have the right to erasure and restriction of processing as well as the right to object to the processing.  
+                                    —	You can contact TU Dresden's Data Protection Officer at any time:
+                                    
+                                    Technische Universität Dresden  
+                                    Data Protection Officer  
+                                    DE - 01062 Dresden  
+                                    Tel.: +49 351 463 32839  
+                                    Fax : +49 351 463 39718  
+                                    Email: informationssicherheit@tu-dresden.de  
+                                    https://tu-dresden.de/informationssicherheit  
+
+                                    —	You also have the right to appeal to the supervisory authority if you believe that the processing of data concerning your person does not comply with the law. The supervisory authority for data protection is:
+                                    Saxon Data Protection and Transparency Officer:
+
+                                    Dr. Juliane Hundert  
+                                    Maternistraße 17  
+                                    DE - 01067 Dresden  
+                                    Email: post@sdtb.sachsen.de   
+                                    Phone: + 49 (0) 35185471 101  
+                                    www.datenschutz.sachsen.de   
+                                    """,
+                                    link_target="_blank"  # sorgt dafür, dass Links im neuen Tab öffnen
+                                ),
+                                style={
+                                    'font-size': '12px',
+                                    "padding": "10px", 
+                                    "border": "1px solid #ddd", 
+                                    "borderRadius": "3px"
+                                },
+                            ),
+                            id="impressum-collapse",
+                            is_open=False
+                        ),
+                        html.Br(),
+                        html.Br(),
+                        html.Br()
+                    ]
+                ),
             ]
         ),
     ]
 )
+
 
 
 ###############################################################################################
@@ -712,6 +821,17 @@ def download(_, data_json):
             index=False
         )
 
+################
+
+@app.callback(
+    Output("impressum-collapse", "is_open"),
+    Input("impressum-button", "n_clicks"),
+    State("impressum-collapse", "is_open")
+)
+def impressum(n, is_open):
+    if n:
+        return not is_open
+    return is_open
 
 ###############################################################################################
 
