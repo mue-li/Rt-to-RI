@@ -795,7 +795,7 @@ def update_graph(json_alkan, json_data, c_time, c_int):
     State("transformed-data", "data"),
     prevent_initial_call=True,
 )
-def download(_, data_json):
+def download_csv(_, data_json):
     """Downloads the updated csv file"""
     if data_json:
         df = pd.read_json(data_json, orient="split")
@@ -811,7 +811,7 @@ def download(_, data_json):
     State("transformed-data", "data"),
     prevent_initial_call=True,
 )
-def download(_, data_json):
+def download_excel(_, data_json):
     """Downloads the updated excel file"""
     if data_json:
         df = pd.read_json(data_json, orient="split")
