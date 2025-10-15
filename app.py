@@ -789,7 +789,7 @@ def update_graph(json_alkan, json_data, c_time, c_int):
     return None, None, True, True
 
 
-@callback(
+@app.callback(
     Output("download-dataframe-csv", "data"),
     Input("download-button-csv", "n_clicks"),
     State("transformed-data", "data"),
@@ -805,7 +805,7 @@ def download_csv(_, data_json):
             index=False
         )
 
-@callback(
+@app.callback(
     Output("download-dataframe-excel", "data"),
     Input("download-button-excel", "n_clicks"),
     State("transformed-data", "data"),
@@ -837,3 +837,4 @@ def impressum(n, is_open):
 
 if __name__ == "__main__":
     app.run(debug=False)
+    
