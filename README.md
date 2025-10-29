@@ -26,6 +26,8 @@ To try out the test case, please follow these steps:
 1) Perform all steps in the web application. To do this, use the file ```Testfile_GC-MS_raw-data.CSV```, which you can find in the repository, and the unchanged alkane mix template (file ```Alkanmix.csv```).
 2) If you have followed the instructions in the web application, you should see a preview image. You should also be able to download a converted file with the same content as the file ```Testfile_transformed_data_file.csv``` (you can find the file in the repository for comparison).
 
+If you need help using the web application, please refer to the User Guide ```User-Guide_App.pdf```.
+
 # Background
 The retention index (RI) is used in gas chromatography (GC) to standardise the retention time of an analyte independently of the measuring device, the temperature gradient, the column dimension and the gas flow. The RI is a relative value that is characteristic for a substance on a certain stationary phase in a separation column [1]. The RIs of many substances on different stationary phases - mostly DB-1, DB-5, WAX and FFAP - are listed in databases such as the NIST database [2]. Therefore, the RI of a substance can be used as a criterion to identify the substance in addition to the mass spectrum. The aim of this work was to calculate the RI not only for individual peaks, but for the entire GC chromatogram. 
 
