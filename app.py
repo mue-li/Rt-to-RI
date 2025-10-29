@@ -11,6 +11,8 @@ import os
 ###############################################################################################
 # Functions
 ###############################################################################################
+
+# preview image
 def show_plot(df_plot, ri="RI", val="Value"):
     #df_plot = df_plot[df_plot[ri].notna()]
     df_plot = df_plot.dropna()
@@ -31,7 +33,7 @@ def show_plot(df_plot, ri="RI", val="Value"):
 
     return fig
 
-
+# Calculation formula for the retention index
 def calculate_RI(Rt, Retentionszeit, Alkan):
     if Rt <= Retentionszeit[0]:
         return None
@@ -45,12 +47,12 @@ def calculate_RI(Rt, Retentionszeit, Alkan):
                     / (Retentionszeit[i + 1] - Retentionszeit[i])
                 )
             )
-            return round(result, 1)  # auf 1 Nachkommastelle runden
+            return round(result, 1)  # round to one decimal place
 
     return None
 
 
-
+# Creating the new data structure
 def transform_data(df_Alk, df_Raw, c_time, c_int):
     # extract the retention times and retention indices from the CSV file:
     print(df_Alk.columns)
@@ -179,7 +181,7 @@ app.layout = dbc.Container(
 
                                 dbc.Col(
                                     [
-                                        # leer, für das Layout
+                                        # empty (aesthetic reasons)
                                     ]
                                 ),
                                 html.Hr(style={"border-top": "5px solid #00305d"}),
@@ -244,7 +246,7 @@ app.layout = dbc.Container(
 
                                 dbc.Col(
                                     [
-                                        # leer, für das Layout
+                                        # empty (aesthetic reasons)
                                     ]
                                 ),
                                 html.Hr(),
@@ -306,7 +308,7 @@ app.layout = dbc.Container(
 
                                 dbc.Col(
                                     [
-                                        # leer, für das Layout
+                                        # lempty (aesthetic reasons)
                                     ]
                                 ),
 
@@ -492,7 +494,7 @@ app.layout = dbc.Container(
 
                 html.Div(
                     [
-                        # Button zum Ein-/Ausklappen
+                        # button to expand/collapse
                         html.Div(
                             [
                                 html.Button(
@@ -512,7 +514,7 @@ app.layout = dbc.Container(
                         html.Br(),
                         html.Br(),
 
-                        # Einklappbarer Bereich
+                        # foldable area
                         dbc.Collapse(
                             html.Div(
                                 dcc.Markdown(
@@ -566,7 +568,7 @@ app.layout = dbc.Container(
                                     Phone: + 49 (0) 35185471 101  
                                     www.datenschutz.sachsen.de   
                                     """,
-                                    link_target="_blank"  # sorgt dafür, dass Links im neuen Tab öffnen
+                                    link_target="_blank"  # ensures that links open in a new tab
                                 ),
                                 style={
                                     'font-size': '12px',
@@ -709,7 +711,7 @@ def store_file_alkan(contents):
         State("thou-sep-dropdown", "value"),
         )
 def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep): 
-    # falls Dropdowns nicht ausgefüllt werden:
+    # in case drop-down menus are not filled in:
     if n_skip is None:
         n_skip = 100
     
@@ -739,7 +741,7 @@ def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep):
             )
             return df.to_json(date_format="iso", orient="split")
         except UnicodeDecodeError:
-            # wenn UTF8 nicht funktioniert, dann UTF16
+            # if UTF8 does not work, then UTF16
             try:
                 df = pd.read_csv(
                     io.StringIO(decoded.decode("utf-16")),
@@ -750,7 +752,7 @@ def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep):
                 )
                 return df.to_json(date_format="iso", orient="split")
             except UnicodeDecodeError:
-                # wenn auch UTF16 nicht funktioniert, gibt es einen Fehler
+                # if UTF16 does not work either, there is an error
                 return None
     
     return None
@@ -768,7 +770,7 @@ def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep):
     State("int-dropdown", "value"),
 )
 def update_graph(json_alkan, json_data, c_time, c_int):
-    # falls Dropdowns nicht ausgefüllt werden
+    # in case drop-down menus are not filled in:
     if c_time is None:
         c_time = 0
     
