@@ -40,21 +40,27 @@ def calculate_RI(Rt, Retentionszeit, Alkan):
 
     for i in range(len(Retentionszeit) - 1):
         if Retentionszeit[i] < Rt <= Retentionszeit[i + 1]:
+            
+            deltaC = Alkan[i + 1] - Alkan[i] # distance between two carbon atoms in the alkane series
+            
             result = 100 * (
                 Alkan[i]
-                + (
+                + deltaC * (
                     (Rt - Retentionszeit[i])
                     / (Retentionszeit[i + 1] - Retentionszeit[i])
                 )
             )
-            return round(result, 1)  # round to one decimal place
+            return round(result, 3)  # round to three decimal places
 
     return None
 
 
 # Creating the new data structure
 def transform_data(df_Alk, df_Raw, c_time, c_int):
-    # extract the retention times and retention indices from the CSV file:
+    # extracts the retention times and retention indices from the CSV file:  
+    
+    df_Alk = df_Alk.dropna(subset=['Alkan', 'Retentionszeit']) # remove all lines that do not contain a retention time 
+    
     print(df_Alk.columns)
     Retentionszeit = df_Alk["Retentionszeit"].tolist()
     Alkan = df_Alk["Alkan"].tolist()
@@ -130,6 +136,7 @@ app.layout = dbc.Container(
                                     [
                                         html.Li("Column 'Alkan' contains the number of C-atoms (do not change the numbers)."),
                                         html.Li("Column 'Retentionszeit' contains the retention time of the alkane with comma as numeric separator. -> Enter your measured retention times here!"),
+                                        html.Li("Just leave the respective fields in the Column 'Retentionszeit' blank if you do not have a value for the alkane, for example if you have only measured all alkanes with an even number of C-atoms."),
                                         html.Li("Measurement of the alkane mixture must be done with the same chromatographic system as your sample from which you want to convert your raw data."),
                                     ],
                                     style={
@@ -838,5 +845,5 @@ def impressum(n, is_open):
 ###############################################################################################
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
     
