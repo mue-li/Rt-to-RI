@@ -1,4 +1,4 @@
-from dash import Dash, html, Input, Output, State, callback, dcc
+from dash import Dash, html, Input, Output, State, callback, dcc, callback_context
 import dash
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
@@ -83,7 +83,6 @@ app = Dash(
 )  
 server = app.server
 
-
 app.layout = dbc.Container(
     [  # Overhead Navigation Bar with the Logo and a Title
         dbc.Navbar(
@@ -136,7 +135,7 @@ app.layout = dbc.Container(
                                     [
                                         html.Li("Column 'Alkan' contains the number of C-atoms (do not change the numbers)."),
                                         html.Li("Column 'Retentionszeit' contains the retention time of the alkane with comma as numeric separator. -> Enter your measured retention times here!"),
-                                        html.Li("Just leave the respective fields in the Column 'Retentionszeit' blank if you do not have a value for the alkane, for example if you have only measured all alkanes with an even number of C-atoms."),
+                                        html.Li("Just leave the respective fields in the column 'Retentionszeit' blank if you do not have a value for the alkane, for example if you have only measured all alkanes with an even number of C-atoms."),
                                         html.Li("Measurement of the alkane mixture must be done with the same chromatographic system as your sample from which you want to convert your raw data."),
                                     ],
                                     style={
@@ -144,15 +143,38 @@ app.layout = dbc.Container(
                                         'margin-bottom': '4px'
                                     }
                                 ),
-                                "2) Fill in the drop-down fields. Note the conditions in your sample measurement raw data file. (The file must be in .csv or .txt format.)",
+                                "2) Upload the completed alkanmix file to the field provided.",
                                 html.Br(),
-                                "3) Upload the completed alkanmix file to the field provided. Then upload your raw file provided.",
+                                "3) Now you can choose between two options:",
+                                html.Ul(
+                                    [
+                                        html.Li("Mode A: You can calculate the retention index for a single retention time data point."),
+                                        html.Li("Mode B: You can convert all retention time data points in a raw data file into RI data points."),
+                                    ],
+                                    style={
+                                        'margin-left': '10px',
+                                        'margin-bottom': '4px'
+                                    }
+                                ),
                                 html.Br(),
-                                "4) A preview image will now appear. You can download the converted file in .csv or .xlsx formate using the buttons provided. ",
+                                html.Strong("\u2192 Mode A - RI for a single Rt data point:"),
+                                html.Br(),
+                                "4) Enter a retention time and you will see the calculated retention index.",
+                                html.Br(),
+                                html.Br(),
+                                html.Strong("\u2192 Mode B - RI for an entire data file:"),
+                                html.Br(),
+                                "4) Fill in the drop-down fields. Note the conditions in your sample measurement raw data file. (The file must be in .csv or .txt format.)",
+                                html.Br(),
+                                "5) Then upload your raw file provided.",
+                                html.Br(),
+                                "6) A preview image will now appear. You can download the converted file in .csv or .xlsx formate using the buttons provided. ",
                                 html.Br(),
                                 html.Br(),
                             ]
                         ),
+
+                        ###########################
 
                         dbc.Row(
                             [                              
@@ -160,6 +182,21 @@ app.layout = dbc.Container(
                                 dbc.Col(
                                     [
                                         html.P('1) Download the template for the alkane mix:'),
+                                    ]
+                                ),
+
+                                dbc.Col(
+                                    [
+                                        html.P("2) Please upload the 'Alkanmix.csv' file required."),
+                                    ]
+                                ),
+                            ]
+                        ),
+
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    [
                                         dbc.Button(
                                             "Download alkane mix template",
                                             id="download-button-alkan",
@@ -168,7 +205,7 @@ app.layout = dbc.Container(
                                             style={
                                                 "background-color": "grey",
                                                 "height": "60px",
-                                                "width": "87%",
+                                                "width": "90%",
                                                 "font-size": "20px",
                                                 "font-weight": "bold",
                                                 "border-color": "grey",
@@ -188,152 +225,6 @@ app.layout = dbc.Container(
 
                                 dbc.Col(
                                     [
-                                        # empty (aesthetic reasons)
-                                    ]
-                                ),
-                                html.Hr(style={"border-top": "5px solid #00305d"}),
-                            ]
-                        ),
-
-                        dbc.Row(
-                            [
-                                dbc.Col(
-                                    [
-                                        html.P([
-                                            '2) Position of the column with time values in your raw data file:',
-                                            html.Br(),
-                                            '(The first column on the left is number 1, the second is number 2, and so on.)'
-                                        ]),
-                                        dcc.Dropdown(
-                                             id='time-dropdown',
-                                             options=[
-                                                 {'label': str(i), 'value': i-1} for i in range(1, 6)
-                                              ],
-                                             placeholder='Select the number of the column',
-                                        ),
-                                    ]
-                                ),
-
-                                dbc.Col(
-                                    [
-                                        html.P([
-                                            '3) Position of the column with intensity values in your raw data file:',
-                                            html.Br(),
-                                            '(The first column on the left is number 1, the second is number 2, and so on.)'
-                                        ]),
-                                        dcc.Dropdown(
-                                            id='int-dropdown',
-                                            options=[
-                                                {'label': str(i), 'value': i-1} for i in range(1, 6)
-                                             ],
-                                            placeholder='Select the number of the column',
-                                        ),
-                                        html.Br(),
-                                    ]
-                                ),
-                                
-                            ]
-                        ),
-
-                        dbc.Row(
-                            [                              
-                                dbc.Col(
-                                    [
-                                        html.P('4) Number of the first row with values for time and intensity:'),
-                                        dcc.Dropdown(
-                                            id='skip-dropdown',
-                                            options=[
-                                                {'label': str(i), 'value': i-1} for i in range(1, 101)
-                                            ],
-                                            placeholder='Select the number of the first row',
-                                        ),
-                                        html.Br(),
-                                    ]
-                                ),
-
-                                dbc.Col(
-                                    [
-                                        # empty (aesthetic reasons)
-                                    ]
-                                ),
-                                html.Hr(),
-                            ]
-                        ),
-
-                        dbc.Row(
-                            [
-                                dbc.Col(
-                                    [
-                                        html.P('5) Decimal separator in your raw data file:'),
-                                        dcc.Dropdown(
-                                            id='num-sep-dropdown',
-                                            options=[
-                                                {'label': 'Comma to separate the decimal places (e.g. 12,34567)', 'value': ','},
-                                                {'label': 'Dot to separate the decimal places (e.g. 12.34567)', 'value': '.'},
-                                             ],
-                                            placeholder='Select the decimal separator',
-                                        ),       
-                                    ]
-                                ),
-
-                                dbc.Col(
-                                    [
-                                        html.P('6) Separator between the columns in your raw data file:'),
-                                        dcc.Dropdown(
-                                            id='column-sep-dropdown',
-                                            options=[
-                                                {'label': 'Semicolon', 'value': ';'},
-                                                {'label': 'Comma', 'value': ','},
-                                                {'label': 'Tab stop', 'value': '\t'},                                        
-                                                {'label': 'Space', 'value': ' '},
-                                             ],
-                                            placeholder='Select the column separator',
-                                        ),
-                                        html.Br(),
-                                    ]
-                                ),
-                            ]
-                        ),
-
-                        dbc.Row(
-                            [
-                                dbc.Col(
-                                    [
-                                        html.P('7) Thousands separator in your raw data file:'),
-                                        dcc.Dropdown(
-                                            id='thou-sep-dropdown',
-                                            options=[
-                                                {'label': 'No mark for the separation of the thousands (e.g. 1234567)', 'value': 'None'},
-                                                {'label': 'Comma to separate the thousands places (e.g. 1,234,567)', 'value': ','},
-                                                {'label': 'Dot to separate the thousands places (e.g. 1.234.567)', 'value': '.'},
-                                             ],
-                                            placeholder='Select the thousands separator',
-                                        ), 
-                                            html.Br(),      
-                                    ]
-                                ),
-
-                                dbc.Col(
-                                    [
-                                        # lempty (aesthetic reasons)
-                                    ]
-                                ),
-
-                                html.Hr(style={"border-top": "5px solid #00305d"}),
-                            ]
-                        ),
-
-                        
-                        dbc.Row(
-                            [
-                                dbc.Col(
-                                    [
-                                        html.P(
-                                            [
-                                                "8) Please upload the 'Alkanmix.csv' file required.",
-                                                html.Br(),
-                                            ]
-                                        ),
                                         dcc.Upload(
                                             id="alkanmix-upload",
                                             children=html.Div(
@@ -359,14 +250,260 @@ app.layout = dbc.Container(
                                             },
                                         ),
                                         dcc.Store(id="stored-alkan"),
+                                    ],
+                                    align="center",
+                                    className="mb-3",
+                                ),
+                                html.Hr(style={"border-top": "5px solid #00305d"}),
+                            ]
+                        ),
+
+                        dbc.Row(
+                            [
+                                html.P('3) Please select a mode by clicking on the respective button: '),
+                                dbc.Col(
+                                    [
+                                        dbc.Button(
+                                            "A) RI for single Rt data point",
+                                            id="mode-button-single",
+                                            className="mt-3",
+                                            disabled=False,
+                                            style={
+                                                "background-color": "#0d5fac",
+                                                "height": "60px",
+                                                "width": "90%",
+                                                "font-size": "20px",
+                                                "font-weight": "bold",
+                                                "border-color": "grey",
+                                                "borderRadius": "5px",
+                                                "lineHeight": "40px",
+                                                "textAlign": "center",
+                                                "margin": "10px"
+                                            },
+        
+                                        ),
+                                        html.Br(),
+                                        html.Br(),                                        
                                     ]
                                 ),
 
                                 dbc.Col(
                                     [
+                                        dbc.Button(
+                                            "B) RI for entire data file",
+                                            id="mode-button-entire-file",
+                                            className="mt-3",
+                                            disabled=False,
+                                            style={
+                                                "background-color": "#0d5fac",
+                                                "height": "60px",
+                                                "width": "90%",
+                                                "font-size": "20px",
+                                                "font-weight": "bold",
+                                                "border-color": "grey",
+                                                "borderRadius": "5px",
+                                                "lineHeight": "40px",
+                                                "textAlign": "center",
+                                                "margin": "10px"
+                                            },
+        
+                                        ),
+                                        html.Br(),
+                                        html.Br(),
+                                    ]
+                                ),
+                                html.Hr(style={"border-top": "5px solid #00305d"}),
+                            ]
+                        ),
+                    ]
+                ), 
+
+                #############################
+
+                html.Div(
+                    [
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    [
+                                        html.P(["4) Enter a retention time here:"]),
+                                        dcc.Input(
+                                            id="input-ri-single",
+                                            type="number",
+                                            placeholder="e.g. 15.635",
+                                            style={"width": "90%"},
+                                        ),
+                                        html.Br(),
+                                        html.Br(),
+                                        html.P(["Finde the calculated RI here:"]),
+                                        html.Div(
+                                            id="output-ri-single",
+                                            style={
+                                                "width": "90%",
+                                                "border": "1px solid #ccc",
+                                                "padding": "10px",
+                                                "minHeight": "38px",
+                                                "backgroundColor": "#e7faec",
+                                                "fontWeight": "bold",
+                                            },
+                                        ),
+                                        html.Br(),
+                                    ],
+                                ),
+
+                                dbc.Col(
+                                    [
+                                        # empty (aesthetic reasons)
+                                    ]
+                                ),
+                                html.Hr(style={"border-top": "5px solid #00305d"}),
+                            ]
+                        )
+                    ],
+                    id="div-single",
+                    hidden=True
+                ),
+
+                #############################
+
+                html.Div(
+                    [
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    [
+                                        html.P([
+                                            '4) Position of the column with time values in your raw data file:',
+                                            html.Br(),
+                                            '(The first column on the left is number 1, the second is number 2, and so on.)'
+                                        ]),
+                                        dcc.Dropdown(
+                                             id='time-dropdown',
+                                             options=[
+                                                 {'label': str(i), 'value': i-1} for i in range(1, 6)
+                                              ],
+                                             placeholder='Select the number of the column',
+                                        ),
+                                    ]
+                                ),
+
+                                dbc.Col(
+                                    [
+                                        html.P([
+                                            '5) Position of the column with intensity values in your raw data file:',
+                                            html.Br(),
+                                            '(The first column on the left is number 1, the second is number 2, and so on.)'
+                                        ]),
+                                        dcc.Dropdown(
+                                            id='int-dropdown',
+                                            options=[
+                                                {'label': str(i), 'value': i-1} for i in range(1, 6)
+                                             ],
+                                            placeholder='Select the number of the column',
+                                        ),
+                                        html.Br(),
+                                    ]
+                                ),
+                                
+                            ]
+                        ),
+
+                        dbc.Row(
+                            [                              
+                                dbc.Col(
+                                    [
+                                        html.P('6) Number of the first row with values for time and intensity:'),
+                                        dcc.Dropdown(
+                                            id='skip-dropdown',
+                                            options=[
+                                                {'label': str(i), 'value': i-1} for i in range(1, 101)
+                                            ],
+                                            placeholder='Select the number of the first row',
+                                        ),
+                                        html.Br(),
+                                    ]
+                                ),
+
+                                dbc.Col(
+                                    [
+                                        # empty (aesthetic reasons)
+                                    ]
+                                ),
+                                html.Hr(),
+                            ]
+                        ),
+
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    [
+                                        html.P('7) Decimal separator in your raw data file:'),
+                                        dcc.Dropdown(
+                                            id='num-sep-dropdown',
+                                            options=[
+                                                {'label': 'Comma to separate the decimal places (e.g. 12,34567)', 'value': ','},
+                                                {'label': 'Dot to separate the decimal places (e.g. 12.34567)', 'value': '.'},
+                                             ],
+                                            placeholder='Select the decimal separator',
+                                        ),       
+                                    ]
+                                ),
+
+                                dbc.Col(
+                                    [
+                                        html.P('8) Separator between the columns in your raw data file:'),
+                                        dcc.Dropdown(
+                                            id='column-sep-dropdown',
+                                            options=[
+                                                {'label': 'Semicolon', 'value': ';'},
+                                                {'label': 'Comma', 'value': ','},
+                                                {'label': 'Tab stop', 'value': '\t'},                                        
+                                                {'label': 'Space', 'value': ' '},
+                                             ],
+                                            placeholder='Select the column separator',
+                                        ),
+                                        html.Br(),
+                                    ]
+                                ),
+                            ]
+                        ),
+
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    [
+                                        html.P('9) Thousands separator in your raw data file:'),
+                                        dcc.Dropdown(
+                                            id='thou-sep-dropdown',
+                                            options=[
+                                                {'label': 'No mark for the separation of the thousands (e.g. 1234567)', 'value': 'None'},
+                                                {'label': 'Comma to separate the thousands places (e.g. 1,234,567)', 'value': ','},
+                                                {'label': 'Dot to separate the thousands places (e.g. 1.234.567)', 'value': '.'},
+                                             ],
+                                            placeholder='Select the thousands separator',
+                                        ), 
+                                            html.Br(),      
+                                    ]
+                                ),
+
+                                dbc.Col(
+                                    [
+                                        # lempty (aesthetic reasons)
+                                    ]
+                                ),
+
+                                html.Hr(),
+                            ]
+                        ),
+
+                        
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    [
                                         html.P(
                                             [
-                                                "9) Please upload the raw data file (.csv or .txt) required.",
+                                                "10) Please upload the raw data file (.csv or .txt) required.",
                                                 html.Br(),
                                             ]
                                         ),
@@ -395,31 +532,33 @@ app.layout = dbc.Container(
                                             },
                                         ),
                                         dcc.Store(id="stored-data"),
+                                        html.Br(),
                                     ]
                                 ),
 
-                                html.Br(),
+                                dbc.Col(
+                                    [
+                                        # lempty (aesthetic reasons)
+                                    ]
+                                ),
                                 html.Hr(style={"border-top": "5px solid #00305d"}),
                             ]
+                        ),
+
+                        html.P(
+                            [
+                                "This is an interactive preview image. Use the left mouse button to select an area and enlarge it by drawing a window. Double-click on the image with the left mouse button to zoom out again.",
+                            ],
+                            style={
+                                'font-size': '15px',
+                                'color': "#7F888F"
+                            }
                         ),
 
                         html.Div(
                             [
                                 html.Center(id="graph-goeshere")
                             ]
-                        ),
-                        
-                        html.P(
-                            [
-                                "This is an interactive preview image. Use the left mouse button to select an area and enlarge it by drawing a window. Double-click on the image with the left mouse button to zoom out again.",
-                            
-                                html.Hr(),
-
-                            ],
-                            style={
-                                'font-size': '15px',
-                                'color': "#7F888F"
-                            }
                         ),
 
                         dbc.Row(
@@ -438,9 +577,9 @@ app.layout = dbc.Container(
                                                         "background-color": "#00305d",
                                                         'opacity': '1', 
                                                         'border-color': 'transparent',
-                                                        "height": "70px",
-                                                        "width": "500px",
-                                                        "font-size": "24px",
+                                                        "height": "60px",
+                                                        "width": "90%",
+                                                        "font-size": "20px",
                                                         "font-weight": "bold"
                                                     },
                                                 ),
@@ -469,9 +608,9 @@ app.layout = dbc.Container(
                                                         "background-color": "#00305d",
                                                         'opacity': '1', 
                                                         'border-color': 'transparent',
-                                                        "height": "70px",
-                                                        "width": "500px",
-                                                        "font-size": "24px",
+                                                        "height": "60px",
+                                                        "width": "90%",
+                                                        "font-size": "20px",
                                                         "font-weight": "bold"
                                                     },
                                                 ),
@@ -484,20 +623,22 @@ app.layout = dbc.Container(
                                                 "align-items": "center"
                                             }
                                         ),
+                                        html.Br(),
                                     ]
                                 ),
+                                html.Hr(style={"border-top": "5px solid #00305d"}),
 
                             ]
                         ),
-                        html.Hr(style={"border-top": "5px solid #00305d"}),
 
                         html.Br(),
                         html.Br(),
-                    ]
+                    ],
+                    id="div-entire-file",
+                    hidden=True
                 ),
 
                 ###############################################################
-
 
                 html.Div(
                     [
@@ -603,6 +744,27 @@ app.layout = dbc.Container(
 # CALLBACKS
 ###############################################################################################
 
+################## callbacks alkane mix
+@callback(
+    Output("download-alkan", "data"),
+    Input("download-button-alkan", "n_clicks"),
+    prevent_initial_call=True,
+)
+def download_alkane(n_clicks):
+    base_path = os.path.dirname(__file__)
+    file_path = os.path.join(base_path, "template", "Alkanmix.csv")
+    df = pd.read_csv(
+        file_path,
+        sep=";", 
+        decimal=","
+        )
+    return dcc.send_data_frame(
+        df.to_csv, 
+        filename="Alkanmix.csv", 
+        sep = ";",
+        decimal = ",",
+        index=False)
+
 @app.callback(
     Output("alkanmix-upload-text", "children"),
     Output("alkanmix-upload", "style"),
@@ -639,6 +801,63 @@ def update_upload_feedback(contents):
     ], default_style
 
 @app.callback(
+        Output("stored-alkan", "data"),
+        Input("alkanmix-upload", "contents"))
+def store_file_alkan(contents):
+    if contents:
+        content_type, content_string = contents.split(",")
+        decoded = base64.b64decode(content_string)
+        df = pd.read_csv(
+            io.StringIO(decoded.decode("iso-8859-1")),
+            sep=";",
+            decimal=",",
+            on_bad_lines="skip",
+        )
+        return df.to_json(date_format="iso", orient="split")
+    return None
+
+
+################## callbacks select mode
+
+@app.callback(
+        Output("div-single", "hidden"),
+        Output("div-entire-file", "hidden"),
+        Input("mode-button-single", "n_clicks"),
+        Input("mode-button-entire-file", "n_clicks"),
+        prevent_initial_call=True
+)
+def open_divs(n1, n2):
+    button_id = callback_context.triggered[0]["prop_id"].split(".")[0]
+
+    if button_id == "mode-button-single":
+        return False, True
+    elif button_id == "mode-button-entire-file":
+        return True, False
+
+################## callbacks single mode
+
+@app.callback(
+    Output("output-ri-single", "children"),
+    Input("input-ri-single", "value"),
+    Input("stored-alkan", "data"),
+)
+def update_single_ri(rt_value, json_alkan):
+    if rt_value is None or json_alkan is None:
+        return "—"
+
+    df_alkan = pd.read_json(json_alkan, orient="split")
+    df_alkan = df_alkan.dropna(subset=["Alkan", "Retentionszeit"])
+    Retentionszeit = df_alkan["Retentionszeit"].tolist()
+    Alkan = df_alkan["Alkan"].tolist()
+
+    ri = calculate_RI(rt_value, Retentionszeit, Alkan)
+    if ri is None:
+        return "Out of range", None, True
+    return f"RI = {round(ri, 0):.0f}"
+
+################## callbacks entire file mode
+
+@app.callback(
     Output("data-upload-text", "children"),
     Output("data-upload", "style"),
     Input("data-upload", "contents"),
@@ -672,42 +891,6 @@ def update_upload_feedback(contents):
         "Drag or click ",
         html.A("to select a file.")
     ], default_style
-
-@callback(
-    Output("download-alkan", "data"),
-    Input("download-button-alkan", "n_clicks"),
-    prevent_initial_call=True,
-)
-def download_alkane(n_clicks):
-    base_path = os.path.dirname(__file__)
-    file_path = os.path.join(base_path, "template", "Alkanmix.csv")
-    df = pd.read_csv(
-        file_path,
-        sep=";", 
-        decimal=","
-        )
-    return dcc.send_data_frame(
-        df.to_csv, 
-        filename="Alkanmix.csv", 
-        sep = ";",
-        decimal = ",",
-        index=False)
-
-@app.callback(
-        Output("stored-alkan", "data"),
-        Input("alkanmix-upload", "contents"))
-def store_file_alkan(contents):
-    if contents:
-        content_type, content_string = contents.split(",")
-        decoded = base64.b64decode(content_string)
-        df = pd.read_csv(
-            io.StringIO(decoded.decode("iso-8859-1")),
-            sep=";",
-            decimal=",",
-            on_bad_lines="skip",
-        )
-        return df.to_json(date_format="iso", orient="split")
-    return None
 
 @app.callback(
         Output("stored-data", "data"),
@@ -764,7 +947,6 @@ def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep):
     
     return None
 
-
 # Create plot only if both files are uploaded
 @app.callback(
     Output("graph-goeshere", "children"),
@@ -796,7 +978,6 @@ def update_graph(json_alkan, json_data, c_time, c_int):
             False, False
         )
     return None, None, True, True
-
 
 @app.callback(
     Output("download-dataframe-csv", "data"),
@@ -830,7 +1011,7 @@ def download_excel(_, data_json):
             index=False
         )
 
-################
+################## callbacks impressum
 
 @app.callback(
     Output("impressum-collapse", "is_open"),
