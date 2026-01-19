@@ -13,5 +13,9 @@
 !Alkanmix.csv
 !Testfile_GC-MS_raw-data.CSV
 !Testfile_transformed_data_file.csv
+!Alkanmix-FID.csv
+!Alkanmix-MS.csv
+!GC-MS_02-RI_MixA-100mgl-in-Pentan_transformed_data_file.csv
+!GC-MS_02-Rt_MixA-100mgl-in-Pentan.CSV
 **.docx
 **.ipynb
