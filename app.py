@@ -72,6 +72,56 @@ def transform_data(df_Alk, df_Raw, c_time, c_int):
 
     return df_Raw 
 
+# Error message
+def show_error(text):
+    return dbc.Modal(
+        [
+            dbc.ModalHeader(dbc.ModalTitle("Error")),
+            dbc.ModalBody(text),
+        ],
+        id="modal",
+        is_open=True,
+    )
+
+
+###############################################################################################
+# Variables for style (upload buttons)
+###############################################################################################
+
+default_style = {
+    "width": "90%",
+    "height": "60px",
+    "lineHeight": "60px",
+    "borderWidth": "1px",
+    "borderStyle": "dashed",
+    "borderRadius": "5px",
+    "textAlign": "center",
+    "margin": "10px",
+} 
+
+new_style = {
+    "width": "90%",
+    "height": "60px",
+    "lineHeight": "60px",
+    "borderWidth": "1px",
+    "borderStyle": "dashed",
+    "borderRadius": "5px",
+    "textAlign": "center",
+    "margin": "10px",
+    "backgroundColor": "#dcede0",
+}
+    
+false_style = {
+    "width": "90%",
+    "height": "60px",
+    "lineHeight": "60px",
+    "borderWidth": "1px",
+    "borderStyle": "dashed",
+    "borderRadius": "5px",
+    "textAlign": "center",
+    "margin": "10px",
+    "backgroundColor": "#ffd8d3",
+}
 
 ###############################################################################################
 # Application
@@ -117,12 +167,12 @@ app.layout = dbc.Container(
                                 "Rt-to-RI is a Python tool that converts the retention time (Rt) into the corresponding retention index (RI). The resulting data set can be imported into a visualisation programme and used to display GC chromatograms with the RI instead of the Rt on the abscissa.",
                                 html.Br(),
                                 html.Hr(),
-                                "For more information about Rt-to-RI and if you want to run the tool locally on your computer, please visit our GitHub website:",
+                                "For more information about the Rt-to-RI tool and if you want to run the tool locally on your computer, please visit our GitHub website:",
                                 html.Br(),
                                 html.A("https://github.com/mue-li/Rt-to-RI", href="https://github.com/mue-li/Rt-to-RI", target="_blank"),
                                 html.Br(),
                                 html.Br(),
-                                "If you use Rt-to-RI tool, please cite this work!",
+                                "If you use the Rt-to-RI tool, please cite this work!",
                                 html.Br(),
                                 "L. Müller, J. M. Zimmermann, T. J. Simat (2025): Rt-to-RI Python tool [Computer software], Zenodo, ", 
                                 html.A("DOI 10.5281/zenodo.16893056", href="https://doi.org/10.5281/zenodo.16893134", target="_blank"),
@@ -164,11 +214,25 @@ app.layout = dbc.Container(
                                 html.Br(),
                                 html.Strong("\u2192 Mode B - RI for an entire data file:"),
                                 html.Br(),
-                                "4) Fill in the drop-down fields. Note the conditions in your sample measurement raw data file. (The file must be in .csv or .txt format.)",
+                                "4) Fill in the dropdown fields. Note the conditions in your sample measurement raw data file. (The file must be in .csv or .txt format.)",
                                 html.Br(),
                                 "5) Then upload your raw file provided.",
                                 html.Br(),
-                                "6) A preview image will now appear. You can download the converted file in .csv or .xlsx formate using the buttons provided. ",
+                                "6) A preview image will now appear, which can be downloaded in .svg format.",
+                                html.Br(),
+                                "7) You can download the converted file in .csv or .xlsx formate using the buttons provided. ",
+                                html.Br(),
+                                html.Br(),
+                                html.Strong("Note on other information in the data"),
+                                html.Br(),
+                                "Only the data for retention time/retention index and intensity are extracted from the uploaded data file. Other information from the file, such as file name, date, information on the measurement method, or similar, is not extracted and may need to be added individually afterwards. This is to facilitate the quick and easy processing of the data for the plot.",
+                                html.Br(),
+                                html.Br(),
+                                html.Strong("Error messages"),
+                                html.Br(),
+                                "If you receive an error message, correct your entries and upload the file again in the field provided. In this case, it is normally not necessary to reload the website.",
+                                html.Br(),
+                                "If the application encounters an unknown error or the page stops responding, please reload the website and check all your entries.",
                                 html.Br(),
                                 html.Br(),
                             ]
@@ -230,24 +294,10 @@ app.layout = dbc.Container(
                                             children=html.Div(
                                                 id="alkanmix-upload-text",
                                                 children=
-                                                [
-                                                    "Drag or click ",
-                                                    html.A(
-                                                        "to select a file."
-                                                    ),
-                                                ]
+                                                    "Drag or click to select a file."
                                             ),
                                             # Styling for the upload box
-                                            style={
-                                                "width": "90%",
-                                                "height": "60px",
-                                                "lineHeight": "60px",
-                                                "borderWidth": "1px",
-                                                "borderStyle": "dashed",
-                                                "borderRadius": "5px",
-                                                "textAlign": "center",
-                                                "margin": "10px",
-                                            },
+                                            style=default_style
                                         ),
                                         dcc.Store(id="stored-alkan"),
                                     ],
@@ -511,25 +561,10 @@ app.layout = dbc.Container(
                                             id="data-upload",
                                             children=html.Div(
                                                 id="data-upload-text",
-                                                children=
-                                                [
-                                                    "Drag or click ",
-                                                    html.A(
-                                                        "to select a file."
-                                                    ),
-                                                ]
+                                                children=["Drag or click to select a file."]
                                             ),
                                             # Styling for the upload box
-                                            style={
-                                                "width": "90%",
-                                                "height": "60px",
-                                                "lineHeight": "60px",
-                                                "borderWidth": "1px",
-                                                "borderStyle": "dashed",
-                                                "borderRadius": "5px",
-                                                "textAlign": "center",
-                                                "margin": "10px",
-                                            },
+                                            style=default_style
                                         ),
                                         dcc.Store(id="stored-data"),
                                         html.Br(),
@@ -545,16 +580,8 @@ app.layout = dbc.Container(
                             ]
                         ),
 
-                        html.P(
-                            [
-                                "This is an interactive preview image. Use the left mouse button to select an area and enlarge it by drawing a window. Double-click on the image with the left mouse button to zoom out again.",
-                            ],
-                            style={
-                                'font-size': '15px',
-                                'color': "#7F888F"
-                            }
-                        ),
-
+                        html.P("This is an interactive preview image. Use the left mouse button to select an area and enlarge it by drawing a window. Double-click on the image with the left mouse button to zoom out again."),
+                        html.P("To download the image, hover your mouse over the image and click on the small photo icon that appears at the top. "),
                         html.Div(
                             [
                                 html.Center(id="graph-goeshere")
@@ -636,6 +663,10 @@ app.layout = dbc.Container(
                     ],
                     id="div-entire-file",
                     hidden=True
+                ),
+
+                html.Div(
+                    id="error-container"
                 ),
 
                 ###############################################################
@@ -773,32 +804,9 @@ def download_alkane(n_clicks):
 )
 def update_upload_feedback(contents):
     if contents:
-        new_style = {
-            "width": "90%",
-            "height": "60px",
-            "lineHeight": "60px",
-            "borderWidth": "1px",
-            "borderStyle": "dashed",
-            "borderRadius": "5px",
-            "textAlign": "center",
-            "margin": "10px",
-            "backgroundColor": "#dcede0",
-        }
         return "File uploaded successfully.", new_style
-    default_style = {
-            "width": "90%",
-            "height": "60px",
-            "lineHeight": "60px",
-            "borderWidth": "1px",
-            "borderStyle": "dashed",
-            "borderRadius": "5px",
-            "textAlign": "center",
-            "margin": "10px",
-        }  
-    return [
-        "Drag or click ",
-        html.A("to select a file.")
-    ], default_style
+     
+    return "Drag or click to select a file.", default_style
 
 @app.callback(
         Output("stored-alkan", "data"),
@@ -858,50 +866,20 @@ def update_single_ri(rt_value, json_alkan):
 ################## callbacks entire file mode
 
 @app.callback(
-    Output("data-upload-text", "children"),
-    Output("data-upload", "style"),
-    Input("data-upload", "contents"),
-    prevent_initial_call=True
-)
-def update_upload_feedback(contents):
-    if contents:
-        new_style = {
-            "width": "90%",
-            "height": "60px",
-            "lineHeight": "60px",
-            "borderWidth": "1px",
-            "borderStyle": "dashed",
-            "borderRadius": "5px",
-            "textAlign": "center",
-            "margin": "10px",
-            "backgroundColor": "#dcede0",
-        }
-        return "File uploaded successfully.", new_style  
-    default_style = {
-            "width": "90%",
-            "height": "60px",
-            "lineHeight": "60px",
-            "borderWidth": "1px",
-            "borderStyle": "dashed",
-            "borderRadius": "5px",
-            "textAlign": "center",
-            "margin": "10px",
-        }
-    return [
-        "Drag or click ",
-        html.A("to select a file.")
-    ], default_style
-
-@app.callback(
         Output("stored-data", "data"),
+        Output("error-container", "children", allow_duplicate=True),
+        Output("data-upload-text", "children", allow_duplicate=True), 
+        Output("data-upload", "style", allow_duplicate=True), 
+        Output("data-upload", "contents", allow_duplicate=True),
         Input("data-upload", "contents"), 
         State("skip-dropdown", "value"),
         State("num-sep-dropdown", "value"),
         State("column-sep-dropdown", "value"),
         State("thou-sep-dropdown", "value"),
+        prevent_initial_call=True,
         )
-def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep): 
-    # in case drop-down menus are not filled in:
+def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep):    
+    # in case dropdown menus are not filled in:
     if n_skip is None:
         n_skip = 100
     
@@ -929,7 +907,7 @@ def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep):
                 skiprows=n_skip,
                 thousands=thou_sep,
             )
-            return df.to_json(date_format="iso", orient="split")
+            return df.to_json(date_format="iso", orient="split"), [], "File uploaded successfully.", new_style, None
         except UnicodeDecodeError:
             # if UTF8 does not work, then UTF16
             try:
@@ -940,12 +918,14 @@ def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep):
                     skiprows=n_skip,
                     thousands=thou_sep,
                 )
-                return df.to_json(date_format="iso", orient="split")
+                return df.to_json(date_format="iso", orient="split"), [], "File uploaded successfully.", new_style, None
             except UnicodeDecodeError:
                 # if UTF16 does not work either, there is an error
-                return None
-    
-    return None
+                return None, [show_error("Error: Unsupported file encoding. Please ensure the file is encoded in UTF-8 or UTF-16.")], "File upload failed.", false_style, None
+        except pd.errors.ParserError:
+            # if dropdowns are not correct 
+            return None, [show_error("Error: The file appears to be corrupted. Please check that all dropdown fields are filled appropriatly.")], "File upload failed.", false_style, None
+        
 
 # Create plot only if both files are uploaded
 @app.callback(
@@ -953,13 +933,17 @@ def store_file_data(contents, n_skip, num_sep, column_sep, thou_sep):
     Output("transformed-data", "data"),
     Output("download-button-csv", "disabled"),
     Output("download-button-excel", "disabled"),
+    Output("error-container", "children", allow_duplicate=True),
+    Output("data-upload-text", "children", allow_duplicate=True), 
+    Output("data-upload", "style", allow_duplicate=True),
     Input("stored-alkan", "data"),
     Input("stored-data", "data"),
     State("time-dropdown", "value"),
     State("int-dropdown", "value"),
+    prevent_initial_call=True,
 )
-def update_graph(json_alkan, json_data, c_time, c_int):
-    # in case drop-down menus are not filled in:
+def update_graph(json_alkan, json_data, c_time, c_int):    
+    # in case dropdown menus are not filled in:
     if c_time is None:
         c_time = 0
     
@@ -969,15 +953,31 @@ def update_graph(json_alkan, json_data, c_time, c_int):
     if json_alkan and json_data:
         alkan = pd.read_json(json_alkan, orient="split")
         data = pd.read_json(json_data, orient="split")
-        print(data.columns)
-        data_transf = transform_data(alkan, data, c_time, c_int)
-        data_transf.columns = ["RI", "Value"] + list(data_transf.columns[2:])
-        return (
-            dcc.Graph(figure=show_plot(data_transf, "RI", "Value")),
-            data_transf.to_json(date_format="iso", orient="split"),
-            False, False
-        )
-    return None, None, True, True
+        
+        try:
+            data_transf = transform_data(alkan, data, c_time, c_int)
+
+            if data.isna().all().any():
+                return None, None, True, True, [show_error("Error: The file appears to be corrupted. Please check that all dropdown fields are filled appropriatly.")], "File upload failed.", false_style
+            
+            data_transf.columns = ["RI", "Value"] + list(data_transf.columns[2:])
+            return (
+                dcc.Graph(
+                    figure=show_plot(data_transf, "RI", "Value"),
+                    config={
+                        "toImageButtonOptions": {
+                            "format": "svg",            # highest resolution with "svg"
+                            "filename": "chromatogram",
+                            "scale": 4                  # resolution figure
+                        }
+                    }
+                ),
+                data_transf.to_json(date_format="iso", orient="split"),
+                False, False, [], "File uploaded successfully.", new_style
+            )
+        except (TypeError, IndexError):
+            return None, None, True, True, [show_error("Error: The file appears to be corrupted. Please check that all dropdown fields are filled appropriatly.")], "File uploaded failed.", false_style
+    return None, None, True, True, [], "Drag or click to select a file.", default_style
 
 @app.callback(
     Output("download-dataframe-csv", "data"),
@@ -1026,5 +1026,5 @@ def impressum(n, is_open):
 ###############################################################################################
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
     
