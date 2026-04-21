@@ -4,7 +4,7 @@
 *Rt-to-RI* is a Python tool that converts the retention time (Rt) into the corresponding retention index (RI). This can be done for the entire data of a gas chromatography (GC) chromatogram (value pairs of Rt and intensity) and single Rt values. The input is the raw data file of the sample chromatogram in .txt or .csv format and a second .csv file containing the retention times of an *n*-alkane standard mix on the same chromatographic system. The output is a single data set in .csv or .xlsx format and an interactive preview image. The new data file can then be imported into a visualisation programme used to display the GC chromatogram with the RI on the abscissa and for further processing.
 
 **If you use the *Rt-to-RI* tool, please cite our work!** You can find more information in our scientific publication. <br>
-L. Müller, J.M. Zimmermann, T.J. Simat (**2026**): A Python Tool for Automated Conversion of Retention Time (Rt) to Retention Index (RI) in Gas Chromatography and Instrumental Aroma Analysis. *Food Anal. Methods* 19:200. https://doi.org/10.1007/s12161-026-03105-9 
+L. Müller, J.M. Zimmermann, T.J. Simat (**2026**): *Rt-to-RI*: A Python Tool for Automated Conversion of Retention Time (Rt) to Retention Index (RI) in Gas Chromatography and Instrumental Aroma Analysis. *Food Anal. Methods* 19:200. https://doi.org/10.1007/s12161-026-03105-9 
 
 # Web-Application
 *Rt-to-RI* is available online via the following link: <br>
