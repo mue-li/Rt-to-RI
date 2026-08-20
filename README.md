@@ -17,7 +17,7 @@ Alternatively, you can install the tool on your computer and use it locally by f
     - https://www.anaconda.com/download
 2) Clone or download the repository into a suitable directory.
 3) If necessary, install the packages by running the command ```pip install -r requirements.txt``` in your terminal.
-4) Open the ```app.py``` and run the the file to start the application locally. 
+4) Open the ```app.py``` and run the file to start the application locally. 
 5) Copy the presented link ('Dash is running on http://127.X.X.X:XXXX/') in your Browser.
 6) Follow the instructions that you will now find in the web application. This way you can convert your raw data.
 
