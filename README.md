@@ -8,7 +8,7 @@ L. Müller, J.M. Zimmermann, T.J. Simat (**2026**): *Rt-to-RI*: A Python Tool fo
 
 # Web-Application
 *Rt-to-RI* is available online via the following link: <br>
-https://cclh50.chm.tu-dresden.de/app (to open in a new tab, press Ctrl + click) <br>
+[https://cclh50.chm.tu-dresden.de/app](https://cclh45.chm.tu-dresden.de/app/) (to open in a new tab, press Ctrl + click) <br>
 Alternatively, you can install the tool on your computer and use it locally by following the installation instructions.
 
 # Installation
